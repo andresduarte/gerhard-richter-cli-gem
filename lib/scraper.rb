@@ -1,11 +1,14 @@
+# encoding: UTF-8
+
+require 'rubygems'
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
 
 class Scraper
 
-  def self.scrape_subjects_page(periods_url)
-    doc = Nokogiri::HTML(open(periods_url))
+  def self.scrape_subjects_page(subjects_url)
+    doc = Nokogiri::HTML(open(subjects_url))
 
     subjects = []
 
@@ -43,21 +46,30 @@ class Scraper
       end
     end
     subjects
-    binding.pry
   end
 
-  def self.scrape_period_page(period_url)
-    doc = Nokogiri::HTML(open(period_url))
+  def self.scrape_subject_page(subject_url)
+    doc = Nokogiri::HTML(open(subject_url))
+    doc.encoding = 'UTF-8'
 
     paintings = []
+    counter = 0
 
     doc.css(".a-thumb-link").each do |painting|
-      paintings << {name: painting.css("span.span-painting-title2").text, link: painting.attribute("href").value }
+      paintings << {link: painting.attribute("href").value }
+      if painting.css("span.span-painting-title2").text == ""
+        paintings[counter][:name] = painting.css("span.span-painting-title1").text
+      else
+        paintings[counter][:name] = painting.css("span.span-painting-title2").text
+      end
+      counter += 1
     end
-    paintings
-    binding.pry
+    puts paintings
   end
 
 end
 
-Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
+
+
+##Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
+##Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19")
