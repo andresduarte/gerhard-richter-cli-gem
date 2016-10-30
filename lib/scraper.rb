@@ -8,18 +8,18 @@ class Scraper
   def self.scrape_artist_page(artist_url)
     doc = Nokogiri::HTML(open(artist_url))
 
-    artist = {}
-    education_1 = doc.css("div#mw-content-text table tr:nth-of-type(5) td:first-of-type a.mw-redirect").text
-    education_1 << ", "
-    education_rest = doc.css("div#mw-content-text table tr:nth-of-type(5) td:first-of-type a.mw-redirect ~ a")
+    age = doc.css("span.ForceAgeToShow").text.gsub(/[(age )]/, "")
+    nationality = doc.css("table tr:nth-of-type(4) td.category").text
+    movement = doc.css("tr td.category a").text
+    edu_1 = doc.css("div#mw-content-text table tr:nth-of-type(5) td:first-of-type a.mw-redirect").text + ", "
+    edu_2 = doc.css("div#mw-content-text table tr:nth-of-type(5) td:first-of-type a.mw-redirect ~ a")
 
-    education_rest.each do |e|
-      education_1 << e.text
-      if education_rest.size > 1
-        education_1 << ", "
-      end
+    edu_2.each_with_index {|edu, i| i.between?(1, edu_2.size - 1) ? edu_1 << edu.text + ", " : edu_1 << edu.text + "."}
+
+    artist = {age: age, nationality: nationality, movement: movement, education: edu_1}
+    artist.each do |key, value|
+      puts "#{key}: #{value}"
     end
-    puts education_1
   end
 
   def self.scrape_subjects_page(subjects_url)
