@@ -33,31 +33,31 @@ class Scraper
       name = subject.attribute("title").text
       case name
       when "Aeroplanes"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Children"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Women"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Potraits & People"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Mother and Child"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Nudes"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Landscapes"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Clouds"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Everyday Life"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Families"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Buildings"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Candles"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Skulls"
-        subjects << {subject: name, subject_url: subject.attribute("href").value}
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       else
       end
     end
