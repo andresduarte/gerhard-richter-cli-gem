@@ -6,9 +6,21 @@ require 'pry'
 class Scraper
 
   def self.scrape_artist_page(artist_url)
-    doc = Nokogiri::HTML(open(subjects_url))
+    doc = Nokogiri::HTML(open(artist_url))
 
     artist = {}
+    education_1 = doc.css("div#mw-content-text table tr:nth-of-type(5) td:first-of-type a.mw-redirect").text
+    education_1 << ", "
+    education_rest = doc.css("div#mw-content-text table tr:nth-of-type(5) td:first-of-type a.mw-redirect ~ a")
+
+    education_rest.each do |e|
+      education_1 << e.text
+      if education_rest.size > 1
+        education_1 << ", "
+      end
+    end
+    puts education_1
+  end
 
   def self.scrape_subjects_page(subjects_url)
     doc = Nokogiri::HTML(open(subjects_url))
@@ -88,3 +100,4 @@ end
 ##Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
 ##Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19")
 ##Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19/jet-fighter-5479/?&categoryid=19&p=1&sp=32")
+Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter")
