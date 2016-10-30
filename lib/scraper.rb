@@ -5,6 +5,11 @@ require 'pry'
 
 class Scraper
 
+  def self.scrape_artist_page(artist_url)
+    doc = Nokogiri::HTML(open(subjects_url))
+
+    artist = {}
+
   def self.scrape_subjects_page(subjects_url)
     doc = Nokogiri::HTML(open(subjects_url))
     doc.encoding = 'UTF-8'

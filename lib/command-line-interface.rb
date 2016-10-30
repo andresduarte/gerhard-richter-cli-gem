@@ -25,7 +25,11 @@ class CommandLineInteface
 
   def display_paintings
     Painting.all.each do |painting|
-      
+      puts "#{painting.name.upcase}"
+      puts "  location:" + " #{painting.year}"
+      puts "  size:" + " #{painting.size}"
+      puts "  medium:" + " #{painting.medium}"
+      puts "  price:" + " #{painting.price}"
   end
 
   def display_subjects

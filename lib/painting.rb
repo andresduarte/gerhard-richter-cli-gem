@@ -1,11 +1,12 @@
 class Painting
 
-  attr_accessor :name, :medium, :year, :size, :price, :painting_url
+  attr_accessor :name, :medium, :year, :size, :price, :painting_url, :artist
 
   @@all = []
 
   def initialize(attributes_hash)
     add_painting_attributes(attributes_hash)
+    painting.artist = Artist
     @@all << self
   end
 
