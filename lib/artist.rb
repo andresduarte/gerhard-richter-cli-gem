@@ -5,7 +5,7 @@ class Artist
 
   def initialize(attributes_hash)
     add_artist_attributes(attributes_hash)
-    self.all << self
+    @@all << self
   end
 
   def self.all
