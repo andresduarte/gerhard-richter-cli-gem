@@ -5,7 +5,7 @@ class Subject
   @@all = []
 
   def initialize
-    self.all << self
+    @@all << self
   end
 
   def self.all
@@ -14,7 +14,7 @@ class Subject
 
   def self.create_from_subjects(subjects_array)
     subjects_array.each do |subject_hash|
-      new_subject = Subject.new(subject_hash)
+      new_subject = Subject.new
       subject_hash.each do |key, value|
         new_subject.send("#{key}=", value)
       end
