@@ -17,10 +17,8 @@ class Scraper
 
     edu_2.each_with_index {|edu, i| i.between?(1, edu_2.size - 1) ? edu_1 << edu.text + ", " : edu_1 << edu.text + "."}
 
-    artist = {name: name, age: age, nationality: nationality, movement: movement, education: edu_1}
-    artist.each do |key, value|
-      puts "#{key}: #{value}"
-    end
+    artist = {name: name, age: age, nationality: nationality, movement: movement, education: edu_1, artist_url: "https://en.wikipedia.org/wiki/Gerhard_Richter"}
+    artist
   end
 
   def self.scrape_subjects_page(subjects_url)
@@ -101,4 +99,4 @@ end
 ##Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
 ##Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19")
 ##Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19/jet-fighter-5479/?&categoryid=19&p=1&sp=32")
-Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter")
+##Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter")
