@@ -3,8 +3,7 @@ class Artist
   attr_accessor :name, :age, :nationality, :movement, :education
   @@all = []
 
-  def initialize(attributes_hash)
-    add_artist_attributes(attributes_hash)
+  def initialize
     @@all << self
   end
 
