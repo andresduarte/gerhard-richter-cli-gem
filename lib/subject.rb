@@ -1,3 +1,5 @@
+require 'pry'
+
 class Subject
 
   attr_accessor :name, :subject_url
