@@ -15,14 +15,24 @@ class CommandLineInteface
 
   def run
     make_artists
+    add_artist_attributes
     make_subjects
     make_paintings
+    add_paintings_attributes
     display_subjects
   end
 
   def make_artists
     Artist.create_from_profile(Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter"))
   end
+
+  def add_artist_attributes
+    Artist.all.each do |artist|
+      attributes = Scraper.scrape_artist_page(artist_url)
+      Artist.add_artist_attributes(attributes)
+    end
+  end
+
 
   def make_subjects
     subjects_array = Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
