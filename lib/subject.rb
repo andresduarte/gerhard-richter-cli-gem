@@ -1,9 +1,8 @@
 require 'pry'
 
 class Subject
-
-  attr_accessor :name, :subject_url
-
+  extend Concerns::Findable
+  attr_accessor :name, :subject_url, :songs
   @@all = []
 
   def initialize
@@ -21,6 +20,10 @@ class Subject
         new_subject.send("#{key}=", value)
       end
     end
+  end
+
+  def artist
+    self.paintings.collect {|painting| painting.artist}.uniq
   end
 
 end

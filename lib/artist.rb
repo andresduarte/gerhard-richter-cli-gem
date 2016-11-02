@@ -1,18 +1,14 @@
 require 'pry'
 
 class Artist
-
+  extend Concerns::Findable
   attr_accessor :name, :age, :nationality, :movement, :education, :artist_url, :paintings
   @@all = []
 
-  def initialize(name, attributes_hash)
-    @name = name
+  def initialize(attributes_hash)
     self.add_artist_attributes(attributes_hash)
     @paintings = []
-  end
-
-  def self.create(name, attributes_hash)
-    new(name, attributes_hash).tap {|new_artist| new_artist.save}
+    @@all << self
   end
 
   def self.all
@@ -38,9 +34,6 @@ class Artist
     self.paintings.collect {|painting| painting.subject}.uniq
   end
 
-  def save
-    @@all << self
-  end
 
 
 end
