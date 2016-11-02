@@ -3,8 +3,10 @@ require_relative "../lib/artist.rb"
 require_relative "../lib/subject.rb"
 require_relative "../lib/painting.rb"
 require 'nokogiri'
+require 'pry'
 
 class CommandLineInteface
+  BASE_PATH = "https://www.gerhard-richter.com"
 
   def self.modes
     display_subjects
@@ -15,40 +17,31 @@ class CommandLineInteface
 
   def run
     make_artists
-    add_artist_attributes
     make_subjects
     make_paintings
     add_paintings_attributes
-    display_subjects
   end
 
   def make_artists
-    Artist.create_from_profile(Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter"))
+    attributes_hash = Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter")
+    Artist.create_from_profile(attributes_hash)
   end
-
-  def add_artist_attributes
-    Artist.all.each do |artist|
-      attributes = Scraper.scrape_artist_page(artist_url)
-      Artist.add_artist_attributes(attributes)
-    end
-  end
-
 
   def make_subjects
-    subjects_array = Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
+    subjects_array = Scraper.scrape_subjects_page(BASE_PATH + "/en/art/paintings")
     Subject.create_from_subjects(subjects_array)
   end
 
   def make_paintings
     Subject.all.each do |subject|
-      paintings_array = Scraper.scrape_subject_page(subject.subject_url)
+      paintings_array = Scraper.scrape_subject_page(BASE_PATH + subject.subject_url)
       Painting.create_from_subject(paintings_array)
     end
   end
 
   def add_paintings_attributes
     Painting.all.each do |painting|
-      attributes = Scrape.scrape_painting_page(painting.painting_url)
+      attributes = Scrape.scrape_painting_page(BASE_PATH + painting.painting_url)
       painting.add_paintings_attributes(attributes)
     end
   end
@@ -68,3 +61,6 @@ class CommandLineInteface
   end
 
 end
+
+aa =CommandLineInteface.new
+aa.make_artists

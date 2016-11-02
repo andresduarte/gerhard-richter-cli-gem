@@ -79,7 +79,7 @@ class Scraper
       end
       counter += 1
     end
-    paintings
+    puts paintings
   end
 
   def self.scrape_painting_page(painting_url)
@@ -96,7 +96,7 @@ class Scraper
 
 end
 
-##Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
-##Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19")
+Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
+Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19")
 ##Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19/jet-fighter-5479/?&categoryid=19&p=1&sp=32")
 ##Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter")

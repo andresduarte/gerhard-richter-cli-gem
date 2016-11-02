@@ -37,6 +37,10 @@ class Painting
     subject.paintings << self unless subject.songs.include?(self)
   end
 
+  def save
+    @@all << self
+  end
+
 end
 
 Painting.create_from_subject( [{:painting_url=>"/en/art/paintings/photo-paintings/aeroplanes-19/bombers-5480/?&categoryid=19&p=1&sp=32", :name=>"Bombers"},
