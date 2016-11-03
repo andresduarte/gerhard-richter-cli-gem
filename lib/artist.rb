@@ -27,7 +27,7 @@ class Artist
 
   def add_painting(painting)
     painting.artist = self unless painting.artist == self
-    @paintings << painting unless @painting.include?(painting)
+    @paintings << painting unless @paintings.include?(painting)
   end
 
   def subjects

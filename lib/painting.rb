@@ -39,19 +39,20 @@ class Painting
 
 end
 
-BASE_PATH = "https://www.gerhard-richter.com"
+##BASE_PATH = "https://www.gerhard-richter.com"
 
-subjects_array = Scraper.scrape_subjects_page(BASE_PATH + "/en/art/paintings")
-Subject.create_from_subjects(subjects_array)
+##subjects_array = Scraper.scrape_subjects_page(BASE_PATH + "/en/art/paintings")
+##Subject.create_from_subjects(subjects_array)
 
-Subject.all.each do |subject|
-  paintings_array = Scraper.scrape_subject_page(BASE_PATH + subject.subject_url)
-  Painting.create_from_subject(paintings_array)
-end
+##Subject.all.each do |subject|
+  ##paintings_array = Scraper.scrape_subject_page(BASE_PATH + subject.subject_url)
+  ##Painting.create_from_subject(paintings_array)
+##end
 
-Painting.all.each do |painting|
-  attributes = Scraper.scrape_painting_page(BASE_PATH + painting.painting_url)
-  painting.add_painting_attributes(attributes)
-end
+##Painting.all.each do |painting|
+  ##attributes = Scraper.scrape_painting_page(BASE_PATH + painting.painting_url)
+  ##painting.add_painting_attributes(attributes)
+  ##painting.artist = Artist.find_by_name("Gerhard Richter")
+##end
 
-binding.pry
+##binding.pry

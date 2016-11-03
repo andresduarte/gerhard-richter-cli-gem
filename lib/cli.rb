@@ -43,7 +43,7 @@ class CommandLineInteface
     Painting.all.each do |painting|
       attributes = Scraper.scrape_painting_page(BASE_PATH + painting.painting_url)
       painting.add_painting_attributes(attributes)
-      painting.artist = ## use find by name
+      painting.artist = Artist.find_by_name("Gerhard Richter")
     end
   end
 
@@ -63,5 +63,9 @@ class CommandLineInteface
 
 end
 
-##aa =CommandLineInteface.new
-##aa.make_artists
+aa = CommandLineInteface.new
+aa.make_artists
+aa.make_subjects
+aa.make_paintings
+aa.add_paintings_attributes
+binding.pry
