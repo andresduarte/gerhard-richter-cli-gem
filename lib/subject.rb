@@ -1,7 +1,8 @@
+require_relative "../lib/scraper.rb"
 require 'pry'
 
 class Subject
-  extend Concerns::Findable
+  ##extend Concerns::Findable
   attr_accessor :name, :subject_url, :songs
   @@all = []
 
@@ -27,3 +28,13 @@ class Subject
   end
 
 end
+
+##BASE_PATH = "https://www.gerhard-richter.com"
+
+##subjects_array = Scraper.scrape_subjects_page(BASE_PATH + "/en/art/paintings")
+##Subject.create_from_subjects(subjects_array)
+
+##Subject.all.each do |e|
+  ##puts "name: #{e.name}"
+  ##puts "url: #{e.subject_url}"
+##end

@@ -1,8 +1,10 @@
+require_relative "../lib/subject.rb"
+require_relative "../lib/artist.rb"
 require 'pry'
 
 class Painting
-  extend Concerns::Findable
-  attr_accessor :name, :medium, :year, :size, :price, :painting_url,
+  ##extend Concerns::Findable
+  attr_accessor :name, :medium, :year, :size, :price, :painting_url
   attr_reader :artist, :subject
   @@all = []
 
@@ -36,3 +38,20 @@ class Painting
   end
 
 end
+
+BASE_PATH = "https://www.gerhard-richter.com"
+
+subjects_array = Scraper.scrape_subjects_page(BASE_PATH + "/en/art/paintings")
+Subject.create_from_subjects(subjects_array)
+
+Subject.all.each do |subject|
+  paintings_array = Scraper.scrape_subject_page(BASE_PATH + subject.subject_url)
+  Painting.create_from_subject(paintings_array)
+end
+
+Painting.all.each do |painting|
+  attributes = Scraper.scrape_painting_page(BASE_PATH + painting.painting_url)
+  painting.add_painting_attributes(attributes)
+end
+
+binding.pry

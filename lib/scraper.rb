@@ -17,7 +17,7 @@ class Scraper
 
     edu_2.each_with_index {|edu, i| i.between?(1, edu_2.size - 1) ? edu_1 << edu.text + ", " : edu_1 << edu.text + "."}
 
-    artist = {name: name, age: age, nationality: nationality, movement: movement, education: edu_1, artist_url: "https://en.wikipedia.org/wiki/Gerhard_Richter"}
+    artist = {name: name, age: age, nationality: nationality, movement: movement, education: edu_1, artist_url: artist_url}
     artist
   end
 
@@ -34,24 +34,24 @@ class Scraper
         subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Children"
         subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Women"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Potraits & People"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Mother and Child"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Nudes"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Landscapes"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Clouds"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Everyday Life"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Families"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Buildings"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Women"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Potraits & People"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Mother and Child"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Nudes"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Landscapes"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Clouds"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Everyday Life"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Families"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Buildings"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Candles"
         subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Skulls"
@@ -71,7 +71,7 @@ class Scraper
 
     doc.css(".a-thumb-link").each do |painting|
       paintings << {painting_url: painting.attribute("href").value }
-
+      ## try with one line if else, encapsulate conditional logic within hash
       if painting.css("span.span-painting-title2").text == ""
         paintings[counter][:name] = painting.css("span.span-painting-title1").text
       else
@@ -79,7 +79,7 @@ class Scraper
       end
       counter += 1
     end
-    puts paintings
+    paintings
   end
 
   def self.scrape_painting_page(painting_url)
@@ -96,7 +96,7 @@ class Scraper
 
 end
 
-Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
-Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19")
+##Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
+##Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19")
 ##Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19/jet-fighter-5479/?&categoryid=19&p=1&sp=32")
 ##Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter")

@@ -41,8 +41,9 @@ class CommandLineInteface
 
   def add_paintings_attributes
     Painting.all.each do |painting|
-      attributes = Scrape.scrape_painting_page(BASE_PATH + painting.painting_url)
-      painting.add_paintings_attributes(attributes)
+      attributes = Scraper.scrape_painting_page(BASE_PATH + painting.painting_url)
+      painting.add_painting_attributes(attributes)
+      painting.artist = ## use find by name
     end
   end
 
@@ -62,5 +63,5 @@ class CommandLineInteface
 
 end
 
-aa =CommandLineInteface.new
-aa.make_artists
+##aa =CommandLineInteface.new
+##aa.make_artists
