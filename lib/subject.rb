@@ -3,11 +3,12 @@ require 'pry'
 
 class Subject
   ##extend Concerns::Findable
-  attr_accessor :name, :subject_url, :songs
+  attr_accessor :name, :subject_url, :paintings
   @@all = []
 
   def initialize
     @@all << self
+    @paintings = []
   end
 
   def self.all
@@ -25,6 +26,15 @@ class Subject
 
   def artist
     self.paintings.collect {|painting| painting.artist}.uniq
+  end
+
+  def add_painting(painting)
+    painting.artist = self unless painting.artist == self
+    @paintings << painting unless @paintings.include?(painting)
+  end
+
+  def self.find_by_name(name)
+    self.all.detect{|subject| subject.name = name}
   end
 
 end

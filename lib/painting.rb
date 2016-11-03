@@ -4,8 +4,8 @@ require 'pry'
 
 class Painting
   ##extend Concerns::Findable
-  attr_accessor :name, :medium, :year, :size, :price, :painting_url
-  attr_reader :artist, :subject
+  attr_accessor :name, :medium, :year, :size, :price, :painting_url, :subject
+  attr_reader :artist
   @@all = []
 
   def initialize(attributes_hash)
@@ -14,8 +14,13 @@ class Painting
   end
 
 
-  def self.create_from_subject(paintings_array)
-    paintings_array.each {|attributes_hash| Painting.new(attributes_hash)}
+  def self.create_from_subject(paintings_array, subject = nil)
+    ##paintings_array.each {|attributes_hash| attributes_hash[:subject] = subject}
+    paintings_array.each do |attributes_hash|
+      new_painting = Painting.new(attributes_hash)
+      new_painting.subject = subject
+    end
+
   end
 
   def add_painting_attributes(attributes_hash)
@@ -34,7 +39,7 @@ class Painting
 
   def subject=(subject)
     @subject = subject
-    subject.paintings << self unless subject.songs.include?(self)
+    subject.add_painting(self)
   end
 
 end

@@ -35,7 +35,7 @@ class CommandLineInteface
   def make_paintings
     Subject.all.each do |subject|
       paintings_array = Scraper.scrape_subject_page(BASE_PATH + subject.subject_url)
-      Painting.create_from_subject(paintings_array)
+      Painting.create_from_subject(paintings_array, subject)
     end
   end
 
@@ -68,4 +68,6 @@ aa.make_artists
 aa.make_subjects
 aa.make_paintings
 aa.add_paintings_attributes
+
+
 binding.pry
