@@ -3,5 +3,6 @@
 require_relative "../lib/cli.rb"
 
 
-aa = CommandLineInteface.new.run
+aa = CommandLineInteface.new
+aa.run
 aa.modes

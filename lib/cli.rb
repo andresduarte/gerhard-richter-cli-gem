@@ -8,11 +8,26 @@ require 'pry'
 class CommandLineInteface
   BASE_PATH = "https://www.gerhard-richter.com"
 
-  def self.modes
-    display_subjects
+  def modes
     puts "Welcome to Gerhard Richter's Catalogue"
-    puts "you can search for paintings by subject, catalogue or name"
-    @response = gets.strip
+    puts "Would you like to search the Catalogue by subject or name?"
+    input_1 = gets.strip
+    case input_1
+    when "Subject"
+      display_subjects
+      puts "Select a Subject by number or by name"
+      input_2 = gets.strip
+      case input_2
+      when "1" || "Aeroplanes" || "aeroplanes"
+        ## need dispaly painting method
+      when "2" || "Candles" || "candles"
+
+      when "3" || "Children" || "children"
+
+      when "4" || "Skulls" || "skulls"
+
+
+
   end
 
   def run
@@ -58,16 +73,13 @@ class CommandLineInteface
   end
 
   def display_subjects
-    Subject.all.each_with_index {|subject, i| puts "#{i + 1}. #{subject}"}
+    Subject.all.each_with_index {|subject, i| puts "  #{i + 1}. #{subject.name}"}
   end
 
 end
 
-aa = CommandLineInteface.new
-aa.make_artists
-aa.make_subjects
-aa.make_paintings
-aa.add_paintings_attributes
-
-
-binding.pry
+##aa = CommandLineInteface.new
+##aa.make_artists
+##aa.make_subjects
+##aa.make_paintings
+##aa.add_paintings_attributes
