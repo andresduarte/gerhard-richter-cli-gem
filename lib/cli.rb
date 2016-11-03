@@ -58,7 +58,7 @@ class CommandLineInteface
   end
 
   def display_subjects
-    Subject.all.each_with_index {|subject, i| puts "#{i}. #{subject}"}
+    Subject.all.each_with_index {|subject, i| puts "#{i + 1}. #{subject}"}
   end
 
 end

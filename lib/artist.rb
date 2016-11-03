@@ -3,7 +3,7 @@ require 'pry'
 
 class Artist
   ##extend Concerns::Findable
-  attr_accessor :name, :age, :nationality, :movement, :education, :artist_url, :paintings
+  attr_accessor :name, :age, :nationality, :movement, :education, :artist_url, :paintings, :subjects
   @@all = []
 
   def initialize(attributes_hash)

@@ -3,7 +3,7 @@ require 'pry'
 
 class Subject
   ##extend Concerns::Findable
-  attr_accessor :name, :subject_url, :paintings
+  attr_accessor :name, :subject_url, :paintings, :artists
   @@all = []
 
   def initialize
@@ -24,7 +24,7 @@ class Subject
     end
   end
 
-  def artist
+  def artists
     self.paintings.collect {|painting| painting.artist}.uniq
   end
 
