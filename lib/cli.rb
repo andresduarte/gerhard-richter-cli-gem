@@ -4,6 +4,7 @@ require_relative "../lib/subject.rb"
 require_relative "../lib/painting.rb"
 require 'nokogiri'
 require 'pry'
+require 'colorize'
 
 class CommandLineInteface
   BASE_PATH = "https://www.gerhard-richter.com"
@@ -13,21 +14,11 @@ class CommandLineInteface
     puts "Would you like to search the Catalogue by subject or name?"
     input_1 = gets.strip
     case input_1
-    when "Subject"
-      display_subjects
-      puts "Select a Subject by number or by name"
-      input_2 = gets.strip
-      case input_2
-      when "1" || "Aeroplanes" || "aeroplanes"
-        ## need dispaly painting method
-      when "2" || "Candles" || "candles"
-
-      when "3" || "Children" || "children"
-
-      when "4" || "Skulls" || "skulls"
-
-
-
+    when "subject"
+      self.subject_display
+    when "name"
+      self.name_display
+    end
   end
 
   def run
@@ -74,6 +65,38 @@ class CommandLineInteface
 
   def display_subjects
     Subject.all.each_with_index {|subject, i| puts "  #{i + 1}. #{subject.name}"}
+  end
+
+  def subject_display
+    display_subjects
+    puts "Select subject by number or name"
+    input_2 = gets.strip
+    case input_2
+    when "1", "Aeroplanes", "aeroplanes"
+      new_subject = Subject.find_by_name("Aeroplanes")
+      new_subject.paintings.each {|painting| Painting.display(painting)}
+    when "2", "Candles", "candles"
+      new_subject = Subject.find_by_name("Candles")
+      new_subject.paintings.each {|painting| Painting.display(painting)}
+    when "3", "Children", "children"
+      new_subject = Subject.find_by_name("Children")
+      new_subject.paintings.each {|painting| Painting.display(painting)}
+    when "4", "Skulls", "skulls"
+      new_subject = Subject.find_by_name("Skulls")
+      new_subject.paintings.each {|painting| Painting.display(painting)}
+    else
+      subject_work
+    end
+  end
+
+  def name_display
+    input_2 = gets.strip
+    if Painting.names.include?(input_2.capitalize)
+      Painting.display(Painting.find_by_name(input_2))
+    else
+      "Painting not found, type in a different name"
+      name_display
+    end
   end
 
 end

@@ -85,11 +85,11 @@ class Scraper
   def self.scrape_painting_page(painting_url)
     doc = Nokogiri::HTML(open(painting_url))
 
-    painting = {medium: doc.css("p.p-painting-info-medium").text, year: doc.css("span.span-painting-info-year").text,
-    size: doc.css("span.span-painting-info-size").text}
+    painting = {medium: doc.css("p.p-painting-info-medium").text.strip, year: doc.css("span.span-painting-info-year").text.strip,
+    size: doc.css("span.span-painting-info-size").text.strip}
 
     if !doc.css("div.info table tr td:first-of-type").text.nil?
-      painting[:price] = doc.css("div.info table tr td:first-of-type").text
+      painting[:price] = doc.css("div.info table tr td:first-of-type").text.strip
     end
     painting
   end

@@ -7,6 +7,7 @@ class Painting
   attr_accessor :name, :medium, :year, :size, :price, :painting_url, :subject
   attr_reader :artist
   @@all = []
+  @@names_all = []
 
   def initialize(attributes_hash)
     attributes_hash.each {|key, value| self.send("#{key}=", value)}
@@ -42,6 +43,26 @@ class Painting
     subject.add_painting(self)
   end
 
+  def self.display(painting)
+    puts "  name: #{painting.name}"
+    puts "  year: #{painting.year}"
+    puts "  size: #{painting.size}"
+    puts "  medium: #{painting.medium}"
+    if !(painting.price == "")
+      puts "  price: #{painting.price}"
+    end
+    puts "------------------------"
+  end
+
+  def self.names
+    binding.pry
+    Painting.all.each {|painting| @@names_all << painting.name}
+  end
+
+  def self.find_by_name(name)
+    self.all.detect{|painting| painting.name = name}
+  end
+
 end
 
 ##BASE_PATH = "https://www.gerhard-richter.com"
@@ -61,3 +82,4 @@ end
 ##end
 
 ##binding.pry
+Painting.names
