@@ -98,8 +98,8 @@ end
 
 ##Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
 ##Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/mother-and-child-15")
-aa = Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19/bombers-5480/?&categoryid=19&p=1&sp=32")
-bb = Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/mother-and-child-15/s-with-child-8128/?&categoryid=15&p=1&sp=32")
+##aa = Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19/bombers-5480/?&categoryid=19&p=1&sp=32")
+##bb = Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/mother-and-child-15/s-with-child-8128/?&categoryid=15&p=1&sp=32")
 
 ##Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter")
-binding.pry
+##binding.pry

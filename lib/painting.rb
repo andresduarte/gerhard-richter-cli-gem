@@ -7,6 +7,7 @@ class Painting
   ##extend Concerns::Findable
   attr_accessor :name, :medium, :year, :size, :price, :painting_url, :subject
   attr_reader :artist
+
   @@all = []
   @@names_all = []
 
@@ -27,7 +28,7 @@ class Painting
 
   def add_painting_attributes(attributes_hash)
     attributes_hash.each do |key, value|
-        self.send("#{key}=", value)  
+        self.send("#{key}=", value)
     end
     self
   end
@@ -48,7 +49,7 @@ class Painting
 
   def self.display(painting)
     puts "  name: #{painting.name}"
-    puts "  year: #{painting.year}"
+    puts "  year: #{painting.year.name}"
     puts "  size: #{painting.size}"
     puts "  medium: #{painting.medium}"
     if !(painting.price == "")
@@ -84,4 +85,4 @@ end
 ##end
 
 ##binding.pry
-Painting.names
+##Painting.names

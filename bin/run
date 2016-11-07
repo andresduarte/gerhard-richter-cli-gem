@@ -1,6 +1,14 @@
 #!/usr/bin/env ruby
 
 require_relative "../lib/cli.rb"
+require_relative "../lib/scraper.rb"
+require_relative "../lib/artist.rb"
+require_relative "../lib/subject.rb"
+require_relative "../lib/painting.rb"
+require_relative "../lib/year.rb"
+require 'nokogiri'
+require 'pry'
+require 'colorize'
 
 
 aa = CommandLineInteface.new
