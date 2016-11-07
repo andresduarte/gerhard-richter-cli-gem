@@ -63,26 +63,26 @@ class CommandLineInteface
     puts "Select subject by number or name"
     input_2 = gets.strip
     case input_2
-    when "1"
+    when "1", "aeroplanes", "Aeroplanes"
       subject_aeroplane = Subject.find_by_name("Aeroplanes")
       subject_aeroplane.paintings.each {|painting| Painting.display(painting)}
       subject_display
-      binding.pry
-    when "2"
+
+    when "2", "Mother and Child", "mother and child", "Mother and child"
       subject_mother_child = Subject.find_by_name("Mother and Child")
       subject_mother_child.paintings.each {|painting| Painting.display(painting)}
       subject_display
-      binding.pry
-    when "3"
+
+    when "3", "Children", "children"
       subject_children = Subject.find_by_name("Children")
       subject_children.paintings.each {|painting| Painting.display(painting)}
       subject_display
-      binding.pry
-    when "4"
+
+    when "4", "Skulls", "skulls"
       subject_skulls = Subject.find_by_name("Skulls")
       subject_skulls.paintings.each {|painting| Painting.display(painting)}
       subject_display
-      binding.pry
+
     else
     end
   end
@@ -104,20 +104,27 @@ class CommandLineInteface
   end
 end
 
-aa = CommandLineInteface.new
-aa.make_artists
-aa.make_subjects
-aa.make_paintings
-aa.add_paintings_attributes
-Subject.all.each do |subject|
-  subject.paintings.each do |painting|
-    puts "  name : #{painting.name}"
-    puts "  year: #{painting.year.name}"
-    puts "  size: #{painting.size}"
-    puts "  medium: #{painting.medium}"
-    if !(painting.price == "")
-      puts "  price: #{painting.price}"
-    end
-    puts "------------------------"
-  end
-end
+##aa = CommandLineInteface.new
+##aa.make_artists
+##aa.make_subjects
+##aa.make_paintings
+##aa.add_paintings_attributes
+
+##aa.subject_display
+
+
+
+
+##Subject.all.each do |subject|
+  ##subject.paintings.each do |painting|
+    ##puts "  name : #{painting.name}"
+    ##puts "  year: #{painting.year.name}"
+    ##puts "  size: #{painting.size}"
+    ##puts "  medium: #{painting.medium}"
+    ##if !(painting.price == "")
+      ##puts "  price: #{painting.price}"
+    ##end
+
+    ##puts "------------------------"
+  ##end
+##end

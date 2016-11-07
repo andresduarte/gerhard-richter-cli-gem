@@ -34,7 +34,7 @@ class Subject
   end
 
   def self.find_by_name(name)
-    self.all.detect{|subject| subject.name = name}
+    self.all.detect{|subject| subject.name == name}
   end
 
 end
