@@ -47,6 +47,11 @@ class Painting
     subject.add_painting(self)
   end
 
+  def year=(year)
+    @year = year
+    year.add_painting(self)
+  end
+
   def self.display(painting)
     puts "  name: #{painting.name}"
     puts "  year: #{painting.year.name}"

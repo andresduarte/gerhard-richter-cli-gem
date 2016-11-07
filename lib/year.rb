@@ -2,12 +2,13 @@ require 'pry'
 
 class Year
 
-  attr_accessor :name
+  attr_accessor :name, :paintings
 
   @@all = []
 
   def initialize(name)
     @name = name
+    @paintings = []
   end
 
   def self.all
@@ -18,6 +19,11 @@ class Year
     new_year = Year.new(name)
     @@all << new_year
     new_year
+  end
+
+  def add_painting(painting)
+    painting.artist = self unless painting.artist == self
+    @paintings << painting unless @paintings.include?(painting)
   end
 
   def self.find_by_name(name)

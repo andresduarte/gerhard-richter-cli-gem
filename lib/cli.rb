@@ -12,13 +12,19 @@ class CommandLineInteface
 
   def modes
     puts "Welcome to Gerhard Richter's Catalogue"
-    puts "Would you like to search the Catalogue by subject or name?"
-    input_1 = gets.strip
-    case input_1
+    puts "Would you like to search the Catalogue by subject, year or name?"
+    input_mode = gets.strip
+    case input_mode
     when "subject"
       self.subject_display
     when "name"
       self.name_display
+    when "year"
+      self.year_display
+    when "exit"
+    else
+      puts "Your input was invalid, try again"
+      modes
     end
   end
 
@@ -58,50 +64,68 @@ class CommandLineInteface
     Subject.all.each_with_index {|subject, i| puts "  #{i + 1}. #{subject.name}"}
   end
 
+  def display_years
+    Year.all.each {|year, i| puts " - #{year.name}"}
+  end
+
   def subject_display
     display_subjects
     puts "Select subject by number or name"
-    input_2 = gets.strip
-    case input_2
+    input_subject = gets.strip
+    case input_subject
     when "1", "aeroplanes", "Aeroplanes"
       subject_aeroplane = Subject.find_by_name("Aeroplanes")
       subject_aeroplane.paintings.each {|painting| Painting.display(painting)}
-      subject_display
-
+      modes
     when "2", "Mother and Child", "mother and child", "Mother and child"
       subject_mother_child = Subject.find_by_name("Mother and Child")
       subject_mother_child.paintings.each {|painting| Painting.display(painting)}
-      subject_display
-
+      modes
     when "3", "Children", "children"
       subject_children = Subject.find_by_name("Children")
       subject_children.paintings.each {|painting| Painting.display(painting)}
-      subject_display
-
+      modes
     when "4", "Skulls", "skulls"
       subject_skulls = Subject.find_by_name("Skulls")
       subject_skulls.paintings.each {|painting| Painting.display(painting)}
-      subject_display
-
+      modes
+    when "back"
     else
+      puts "Your input is invalid, try again"
+      subject_display
     end
   end
 
   def name_display
     puts "type name"
-    input_2 = gets.strip
+    input_name = gets.strip.capitalize
     names_all = []
     Painting.all.each {|painting| names_all << painting.name}
-    names_all = painting_names_all.uniq
-    if names_all.include?(input_2)
-      puts "BEGIN"
-      Painting.find_by_name(input_2).each {|painting_match| Painting.display(painting_match)}
-      puts "END"
+    if names_all.uniq.include?(input_name)
+      Painting.find_by_name(input_name).each {|painting_match| Painting.display(painting_match)}
+      modes
+    elsif input_name == "back"
     else
       "Painting not found, type in a different name"
       name_display
     end
   end
+
+  def year_display
+    display_years
+    puts "type year"
+    input_year = gets.strip
+    if !Year.find_by_name(input_year).nil?
+      selected_year = Year.find_by_name(input_year)
+      selected_year.paintings.each {|painting| Painting.display(painting)}
+      modes
+    elsif input_year == "back"
+    else
+      puts "No painting found for selected year please select another year"
+      year_display
+    end
+  end
+
 end
 
 ##aa = CommandLineInteface.new
@@ -126,5 +150,13 @@ end
     ##end
 
     ##puts "------------------------"
+  ##end
+##end
+
+
+##Year.all.each do |year|
+  ##puts "#{year.name}"
+  ##year.paintings.each do |painting|
+    ##puts "  #{painting.name}"
   ##end
 ##end
