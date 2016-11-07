@@ -75,24 +75,34 @@ class CommandLineInteface
     when "1", "Aeroplanes", "aeroplanes"
       new_subject = Subject.find_by_name("Aeroplanes")
       new_subject.paintings.each {|painting| Painting.display(painting)}
+      subject_display
     when "2", "Candles", "candles"
       new_subject = Subject.find_by_name("Candles")
       new_subject.paintings.each {|painting| Painting.display(painting)}
+      subject_display
     when "3", "Children", "children"
       new_subject = Subject.find_by_name("Children")
       new_subject.paintings.each {|painting| Painting.display(painting)}
+      subject_display
     when "4", "Skulls", "skulls"
       new_subject = Subject.find_by_name("Skulls")
       new_subject.paintings.each {|painting| Painting.display(painting)}
+      subject_display
     else
-      subject_work
+      subject_display
     end
   end
 
   def name_display
+    puts "type name"
     input_2 = gets.strip
-    if Painting.names.include?(input_2.capitalize)
-      Painting.display(Painting.find_by_name(input_2))
+    names_all = []
+    Painting.all.each {|painting| names_all << painting.name}
+    names_all = painting_names_all.uniq
+    if names_all.include?(input_2)
+      puts "BEGIN"
+      Painting.find_by_name(input_2).each {|painting_match| Painting.display(painting_match)}
+      puts "END"
     else
       "Painting not found, type in a different name"
       name_display
@@ -101,8 +111,9 @@ class CommandLineInteface
 
 end
 
-##aa = CommandLineInteface.new
-##aa.make_artists
-##aa.make_subjects
-##aa.make_paintings
-##aa.add_paintings_attributes
+aa = CommandLineInteface.new
+aa.make_artists
+aa.make_subjects
+aa.make_paintings
+aa.add_paintings_attributes
+binding.pry

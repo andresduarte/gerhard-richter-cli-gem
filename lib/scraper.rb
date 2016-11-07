@@ -2,6 +2,7 @@
 require 'nokogiri'
 require 'open-uri'
 require 'pry'
+require_relative "../lib/year.rb"
 
 class Scraper
 
@@ -27,8 +28,8 @@ class Scraper
 
     subjects = []
 
-    doc.css("div.div-section-category div.div-section-category-mobile a").each do |subject|
-      name = subject.attribute("title").text
+    doc.css("div.div-section-category div.div-section-category-mobile a.a-lit-cat").each do |subject|
+      name = subject.attribute("title").text.strip
       case name
       when "Aeroplanes"
         subjects << {name: name, subject_url: subject.attribute("href").value}
@@ -38,8 +39,8 @@ class Scraper
         ##subjects << {name: name, subject_url: subject.attribute("href").value}
       ##when "Potraits & People"
         ##subjects << {name: name, subject_url: subject.attribute("href").value}
-      ##when "Mother and Child"
-        ##subjects << {name: name, subject_url: subject.attribute("href").value}
+      when "Mother and Child"
+        subjects << {name: name, subject_url: subject.attribute("href").value}
       ##when "Nudes"
         ##subjects << {name: name, subject_url: subject.attribute("href").value}
       ##when "Landscapes"
@@ -52,8 +53,8 @@ class Scraper
         ##subjects << {name: name, subject_url: subject.attribute("href").value}
       ##when "Buildings"
         ##subjects << {name: name, subject_url: subject.attribute("href").value}
-      when "Candles"
-        subjects << {name: name, subject_url: subject.attribute("href").value}
+      ##when "Candles"
+        ##subjects << {name: name, subject_url: subject.attribute("href").value}
       when "Skulls"
         subjects << {name: name, subject_url: subject.attribute("href").value}
       else
@@ -67,29 +68,28 @@ class Scraper
     doc.encoding = 'UTF-8'
 
     paintings = []
-    counter = 0
 
-    doc.css(".a-thumb-link").each do |painting|
+    doc.css("div.div-thumb.div-thumb-with-title a.a-thumb-link").each do |painting|
       paintings << {painting_url: painting.attribute("href").value }
-      ## try with one line if else, encapsulate conditional logic within hash
-      if painting.css("span.span-painting-title2").text == ""
-        paintings[counter][:name] = painting.css("span.span-painting-title1").text
-      else
-        paintings[counter][:name] = painting.css("span.span-painting-title2").text
-      end
-      counter += 1
     end
     paintings
   end
 
   def self.scrape_painting_page(painting_url)
     doc = Nokogiri::HTML(open(painting_url))
+    doc.encoding = 'UTF-8'
 
-    painting = {medium: doc.css("p.p-painting-info-medium").text.strip, year: doc.css("span.span-painting-info-year").text.strip,
-    size: doc.css("span.span-painting-info-size").text.strip}
+    painting = {medium: doc.css("#div-painting-info-box p.p-painting-info-medium").text.strip,
+      year: Year.find_or_create_by_name(doc.css("p.p-painting-info-year-size-etc span.span-painting-info-year").text.strip),
+      size: doc.css("p.p-painting-info-year-size-etc span.span-painting-info-size").text.strip}
 
-    if !doc.css("div.info table tr td:first-of-type").text.nil?
-      painting[:price] = doc.css("div.info table tr td:first-of-type").text.strip
+    painting[:price] = doc.css("div.info table tr td:first-of-type").text.strip
+    if painting[:price] == ""
+      painting.delete(:price)
+    end
+    painting[:name] = doc.css("div#div-painting-info-box span.span-painting-title2").text.strip
+    if painting[:name] == ""
+      painting[:name] = doc.css("div#div-painting-info-box span.span-painting-title1").text.strip
     end
     painting
   end
@@ -97,6 +97,9 @@ class Scraper
 end
 
 ##Scraper.scrape_subjects_page("https://www.gerhard-richter.com/en/art/paintings")
-##Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19")
-##Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19/jet-fighter-5479/?&categoryid=19&p=1&sp=32")
+##Scraper.scrape_subject_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/mother-and-child-15")
+aa = Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/aeroplanes-19/bombers-5480/?&categoryid=19&p=1&sp=32")
+bb = Scraper.scrape_painting_page("https://www.gerhard-richter.com/en/art/paintings/photo-paintings/mother-and-child-15/s-with-child-8128/?&categoryid=15&p=1&sp=32")
+
 ##Scraper.scrape_artist_page("https://en.wikipedia.org/wiki/Gerhard_Richter")
+binding.pry

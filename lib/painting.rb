@@ -1,5 +1,6 @@
 require_relative "../lib/subject.rb"
 require_relative "../lib/artist.rb"
+require_relative "../lib/year.rb"
 require 'pry'
 
 class Painting
@@ -25,7 +26,9 @@ class Painting
   end
 
   def add_painting_attributes(attributes_hash)
-    attributes_hash.each {|key, value| self.send("#{key}=", value)}
+    attributes_hash.each do |key, value|
+        self.send("#{key}=", value)  
+    end
     self
   end
 
@@ -55,12 +58,11 @@ class Painting
   end
 
   def self.names
-    binding.pry
-    Painting.all.each {|painting| @@names_all << painting.name}
+    Painting.all.collect {|painting| painting.name}.uniq
   end
 
   def self.find_by_name(name)
-    self.all.detect{|painting| painting.name = name}
+    self.all.select{|painting| painting.name = name}
   end
 
 end
